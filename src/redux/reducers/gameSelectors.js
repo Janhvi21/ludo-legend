@@ -8,6 +8,8 @@ export const selectPlayer2 = state => state.game.player2;
 export const selectPlayer3 = state => state.game.player3;
 export const selectPlayer4 = state => state.game.player4;
 
+export const selectNoOfPlayer = state => state.game.noOfPlayer;
+
 
 export const selectPocketPileSelection = state => state.game.pileSelectionPlayer;
 export const selectCellSelection = state => state.game.cellSelectionPlayer;

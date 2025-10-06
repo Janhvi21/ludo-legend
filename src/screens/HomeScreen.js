@@ -49,6 +49,7 @@ const HomeScreen = () => {
                         {renderButton('NEW GAME', handleNewGamePress)}
                         {renderButton('VS CPU', () => { Alert.alert("Coming Soon") })}
                         {renderButton('2 VS 2', () => { Alert.alert("Coming Soon") })}
+                        {renderButton('Score Board', () => { Alert.alert("Coming Soon") })}
 
                         <Text style={styles.artist}>Made by - Janhvi Chitnis </Text>
                 </Wrapper >

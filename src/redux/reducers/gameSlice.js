@@ -11,6 +11,9 @@ export const gameSlice = createSlice({
                 annouceWinner: (state, action) => {
                         state.winner = action.payload;
                 },
+                setNoOfPlayers: (state, action) => {
+                        state.noOfPlayer = action.payload.noOfPlayer;
+                },
                 updateFireworks: (state, action) => {
                         state.fireworks = action.payload;
                 },

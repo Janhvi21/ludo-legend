@@ -1,5 +1,5 @@
 import { annouceWinner, disableTouch, unfreezeDice, updateFireworks, updatePlayerChance, updatePlayerPieceValue } from '../reducers/gameSlice';
-import { SafeSpots, StarSpots, turningPoints, victoryStart } from '../../helpers/PlotData';
+import { SafeSpots, StarSpots, startingPoints, turningPoints, victoryStart } from '../../helpers/PlotData';
 import { playSound } from '../../helpers/SoundUtility';
 import { selectCurrentPositions, selectDiceNo } from './gameSelectors';
 import { Alert } from 'react-native';
@@ -77,8 +77,7 @@ export const handleForwardThunk =
                         const enemyPiece = finalPlot.find(piece => piece.id[0] !== id[0]);
                         const enemyId = enemyPiece.id[0];
                         let no = enemyId == 'A' ? 1 : enemyId == 'B' ? 2 : enemyId == 'C' ? 3 : 4;
-
-                        let backwardPath = startPoints[no - 1];
+                        let backwardPath = startingPoints[no - 1];
                         let i = enemyPiece.pos;
                         playSound('collide');
 
@@ -125,10 +124,6 @@ export const handleForwardThunk =
                                 return;
                         }
                 } else {
-                        /* let chancePlayer = playerNo + 1;
-                         if (chancePlayer > 4) {
-                                 chancePlayer = 1;
-                         }*/
-                        dispatch(updatePlayerChance({ playerNo, move: 'true' }));
+                        dispatch(updatePlayerChance({ chancePlayer: playerNo, move: 'true' }));
                 }
         }

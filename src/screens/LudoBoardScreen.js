@@ -14,7 +14,7 @@ import FourTriangles from '../components/FourTriangles'
 import { useIsFocused } from '@react-navigation/native'
 import StartGame from '../assets/images/start.png'
 import { useSelector } from 'react-redux'
-import { noOfPlayers, selectDiceTouch, selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4 } from '../redux/reducers/gameSelectors'
+import { selectNoOfPlayer, selectDiceTouch, selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4 } from '../redux/reducers/gameSelectors'
 import { Colors } from '../constants/Colors'
 import { Plot1Data, Plot3Data, Plot2Data, Plot4Data } from '../helpers/PlotData'
 
@@ -26,8 +26,7 @@ const LudoBoardScreen = () => {
         const isDiceTouch = useSelector(selectDiceTouch);
         const winner = useSelector(state => state.game.winner);
 
-        const noOfPlayers = useSelector(state => state.noOfPlayers);
-
+        const noOfPlayer = useSelector(selectNoOfPlayer);
 
         const isFocused = useIsFocused();
         const opacity = useRef(new Animated.Value(1)).current;
@@ -79,9 +78,9 @@ const LudoBoardScreen = () => {
 
                         <View style={styles.container}>
                                 <View
-                                        style={styles.flexRow}
+                                        style={noOfPlayer === 4 ? styles.flexRow : styles.flexRight}
                                         pointerEvents={isDiceTouch ? 'none' : 'auto'}>
-                                        {noOfPlayers == 4 ? (< Dice color={Colors.green} player={2} data={player2} />) : <Dice></Dice>}
+                                        {noOfPlayer === 4 && < Dice color={Colors.green} player={2} data={player2} />}
                                         <Dice color={Colors.yellow} player={3} rotate data={player3} />
                                 </View>
                                 <View style={styles.ludoBoard}>
@@ -104,7 +103,7 @@ const LudoBoardScreen = () => {
                                 <View style={styles.flexRow}
                                         pointerEvents={isDiceTouch ? 'none' : 'auto'}>
                                         <Dice color={Colors.red} player={1} data={player1} />
-                                        {noOfPlayers == 4 && (<Dice color={Colors.blue} player={4} rotate data={player4} />)}
+                                        {noOfPlayer === 4 && <Dice color={Colors.blue} player={4} rotate data={player4} />}
 
                                 </View>
                         </View>
@@ -160,6 +159,10 @@ const styles = StyleSheet.create({
                 justifyContent: 'space-between',
                 paddingHorizontal: 20,
                 marginVertical: 10,
+        },
+        flexRight: {
+                flexDirection: 'row',
+                justifyContent: 'flex-end',
         },
         plotContainer: {
                 width: '100%',
