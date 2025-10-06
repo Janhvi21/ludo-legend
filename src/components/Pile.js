@@ -41,7 +41,7 @@ const Pile = ({ cell, pieceId, color, player, onPress }) => {
                 const rotationAnimation = Animated.loop(
                         Animated.timing(rotation, {
                                 toValue: 1,
-                                duration: 1000,
+                                duration: 2000,
                                 easing: Easing.linear,
                                 useNativeDriver: true,
                         })

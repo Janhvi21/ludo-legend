@@ -28,7 +28,7 @@ export const initialState = {
         player3: player3InitialState,
         player4: player4InitialState,
         chancePlayer: 1,
-        noOfPlayer: 2,
+        noOfPlayer: 2,     // Set to 4 for 4 player game
         diceNo: 1,
         isDiceRolled: false,
         pileSelectionPlayer: -1,
