@@ -25,7 +25,7 @@ const verticalPath = ({ cells, color }) => {
                                                 style={{ flexDirection: 'row', width: '33.33%', height: '16.7%' }}>
                                                 {group.map((id) => (
                                                         <Cell key={`cell-${id}`} cell={true} id={id} color={color} />
-                                                ))},
+                                                ))}
                                         </View>
                                 ))}
                         </View>

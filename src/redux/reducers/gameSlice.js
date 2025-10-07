@@ -1,13 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialState } from "./initialState";
+import { initialState, scoreboard } from "./initialState";
 import { act } from "react";
 import { Alert } from "react-native";
+import asyncStorage from "../storage";
 
 export const gameSlice = createSlice({
         name: 'game',
         initialState: initialState,
         reducers: {
                 resetGame: () => initialState,
+                setScoreBoard: () => {
+                        asyncStorage.setItem('SCOREBOARD', JSON.stringify(scoreboard));
+                },
                 annouceWinner: (state, action) => {
                         state.winner = action.payload;
                 },
@@ -83,6 +87,6 @@ export const gameSlice = createSlice({
         },
 });
 
-export const { resetGame, disableTouch, updatePlayerPieceValue, unfreezeDice, enableCellSelection, enablePileSelection, updatePlayerChance, updateDiceNo, annouceWinner, updateFireworks } = gameSlice.actions;
+export const { resetGame, setScoreBoard, disableTouch, updatePlayerPieceValue, unfreezeDice, enableCellSelection, enablePileSelection, updatePlayerChance, updateDiceNo, annouceWinner, updateFireworks } = gameSlice.actions;
 
 export default gameSlice.reducer;

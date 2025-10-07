@@ -24,7 +24,7 @@ const HorizontalPath = React.memo(({ cells, color }) => {
                                                 style={{ flexDirection: 'row', width: '16.7%', height: '33.33%' }}>
                                                 {group.map((id) => (
                                                         <Cell key={`cell-${id}`} cell={true} id={id} color={color} />
-                                                ))},
+                                                ))}
                                         </View>
                                 ))}
                         </View>

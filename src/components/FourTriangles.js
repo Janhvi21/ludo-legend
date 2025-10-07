@@ -59,22 +59,20 @@ const FourTriangles = ({ player1, player2, player3, player4 }) => {
                         }
                 ], [player1, player2, player3, player4],
         );
-        const renderPlayerPieces = useCallback((data, index) => {
-                return (
-                        < PlayerPieces
-                                key={index}
-                                player={data.player.filter(item => item.travelCount === 57)}
-                                style={{
-                                        top: data.top,
-                                        bottom: data.bottom,
-                                        left: data.left,
-                                        right: data.right
-                                }}
-                                pieceColor={data.pieceColor}
-                                translate={data.translate}
-                        />
-                ), []
-        });
+        const renderPlayerPieces = useCallback((data, index) => (
+                <PlayerPieces
+                        key={index}
+                        player={data.player.filter(item => item.travelCount === 57)}
+                        style={{
+                                top: data.top,
+                                bottom: data.bottom,
+                                left: data.left,
+                                right: data.right
+                        }}
+                        pieceColor={data.pieceColor}
+                        translate={data.translate}
+                />
+        ), []);
         return (
                 <View style={styles.mainContainer}>
                         {blast && (
@@ -113,7 +111,7 @@ const FourTriangles = ({ player1, player2, player3, player4 }) => {
 const PlayerPieces = React.memo(({ player, style, pieceColor, translate }) => {
         return (
                 <View style={[styles.container, style]}>
-                        {player.map((piece, index) => {
+                        {player.map((piece, index) => (
                                 <View
                                         key={piece.id}
                                         style={{
@@ -129,7 +127,7 @@ const PlayerPieces = React.memo(({ player, style, pieceColor, translate }) => {
                                                 pieceId={piece.id}
                                                 color={pieceColor} />
                                 </View>
-                        })}
+                        ))}
                 </View>
         );
 });
