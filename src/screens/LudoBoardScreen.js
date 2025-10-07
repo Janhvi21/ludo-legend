@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, Animated } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Animated } from 'react-native'
 import React, { use, useCallback, useEffect, useRef, useState } from 'react'
 import { deviceHeight, deviceWidth } from '../constants/Scaling'
 import Wrapper from '../components/Wrapper'

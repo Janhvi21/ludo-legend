@@ -37,4 +37,9 @@ export const initialState = {
         currentPositions: [],
         fireworks: false,
         winner: null,
+        scoreboard: scoreboard,
 }
+export const scoreboard = [
+        { id: 1, name: 'Janhvi', wins: 4 },
+        { id: 2, name: 'Abhishek', wins: 5 }
+]

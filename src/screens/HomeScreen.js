@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, Image, Alert } from 'react-native'
-import React, { use, useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import Wrapper from '../components/Wrapper'
 import Logo from '../assets/images/logo.png'
 import { deviceHeight, deviceWidth } from '../constants/Scaling'
@@ -9,7 +9,7 @@ import { useIsFocused } from '@react-navigation/native'
 import SoundPlayer from 'react-native-sound-player'
 import { navigate } from '../helpers/NavigationUtil'
 import { selectCurrentPositions } from '../redux/reducers/gameSelectors'
-import { resetGame } from '../redux/reducers/gameSlice'
+import { resetGame, setScoreBoard } from '../redux/reducers/gameSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const HomeScreen = () => {
@@ -25,6 +25,7 @@ const HomeScreen = () => {
         const renderButton = useCallback(
                 (title, onPress) => <GradentButton title={title} onPress={onPress} />, []
         );
+        dispatch(setScoreBoard());
         const startGame = async (isNew = false) => {
                 SoundPlayer.stop();
                 if (isNew) {
@@ -39,6 +40,9 @@ const HomeScreen = () => {
         const handleResumePress = useCallback(() => {
                 startGame();
         }, []);
+        const handleScoreBoardPress = useCallback(() => {
+                navigate('ScoreBoardScreen');
+        }, []);
         return (
                 <Wrapper style={styles.mainContainer}>
                         <View style={styles.imgContainer}>
@@ -47,9 +51,10 @@ const HomeScreen = () => {
                         {currentPosition.length !== 0 &&
                                 renderButton('RESUME GAME', handleResumePress)}
                         {renderButton('NEW GAME', handleNewGamePress)}
+                        {renderButton('SCORE BOARD', handleScoreBoardPress)}
                         {renderButton('VS CPU', () => { Alert.alert("Coming Soon") })}
                         {renderButton('2 VS 2', () => { Alert.alert("Coming Soon") })}
-                        {renderButton('Score Board', () => { Alert.alert("Coming Soon") })}
+
 
                         <Text style={styles.artist}>Made by - Janhvi Chitnis </Text>
                 </Wrapper >
