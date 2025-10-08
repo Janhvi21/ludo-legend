@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, Image, Alert } from 'react-native'
 import React, { useCallback, useEffect } from 'react'
 import Wrapper from '../components/Wrapper'
-import Logo from '../assets/images/logo.png'
+import Logo from '../assets/images/ludoLegends.png'
 import { deviceHeight, deviceWidth } from '../constants/Scaling'
 import GradentButton from '../components/GradentButton'
 import { playSound } from '../helpers/SoundUtility'
@@ -9,7 +9,7 @@ import { useIsFocused } from '@react-navigation/native'
 import SoundPlayer from 'react-native-sound-player'
 import { navigate } from '../helpers/NavigationUtil'
 import { selectCurrentPositions } from '../redux/reducers/gameSelectors'
-import { resetGame, setScoreBoard } from '../redux/reducers/gameSlice'
+import { resetGame, assignPiles, setScoreBoard, setNoOfPlayers } from '../redux/reducers/gameSlice'
 import { useDispatch, useSelector } from 'react-redux'
 
 const HomeScreen = () => {
@@ -18,6 +18,7 @@ const HomeScreen = () => {
         const isFocused = useIsFocused();
 
         useEffect(() => {
+                dispatch(setScoreBoard());
                 if (isFocused) {
                         playSound('home');
                 }
@@ -25,13 +26,15 @@ const HomeScreen = () => {
         const renderButton = useCallback(
                 (title, onPress) => <GradentButton title={title} onPress={onPress} />, []
         );
-        dispatch(setScoreBoard());
+
         const startGame = async (isNew = false) => {
                 SoundPlayer.stop();
                 if (isNew) {
                         dispatch(resetGame());
+                        dispatch(setNoOfPlayers(4));
+                        dispatch(assignPiles());
                 }
-                navigate('LudoBoardScreen');
+                navigate('SelectPlayersScreen');
                 playSound('game-start');
         }
         const handleNewGamePress = useCallback(() => {
@@ -73,8 +76,8 @@ const styles = StyleSheet.create({
                 alignSelf: 'center',
         },
         img: {
-                width: '100%',
-                height: '100%',
+                width: '200%',
+                height: '200%',
                 resizeMode: 'contain',
         },
         artist: {

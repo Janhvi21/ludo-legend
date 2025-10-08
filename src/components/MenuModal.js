@@ -4,20 +4,20 @@ import Modal from 'react-native-modal'
 import { useDispatch } from 'react-redux'
 import { playSound } from '../helpers/SoundUtility'
 import LinearGradient from 'react-native-linear-gradient'
-import { resetGame } from '../redux/reducers/gameSlice'
+import { assignPiles, resetGame } from '../redux/reducers/gameSlice'
 import GradentButton from './GradentButton'
-import { goBack } from '../helpers/NavigationUtil'
+import { goBack, navigate } from '../helpers/NavigationUtil'
 
 const MenuModal = ({ visible, onPressHide }) => {
         const dispatch = useDispatch();
         const handleNewGame = useCallback(() => {
-                dispatch(resetGame());
-                playSound('game_start');
                 onPressHide();
+                navigate('SelectPlayersScreen')
         }, [dispatch, onPressHide]);
 
         const handleHome = useCallback(() => {
-                goBack();
+                onPressHide();
+                navigate('HomeScreen');
         }, []);
 
         return (

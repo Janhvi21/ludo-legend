@@ -1,4 +1,4 @@
-import { View, StyleSheet, Animated, Easing, Image, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, Animated, Easing, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentPlayerChance, selectDiceNo, selectDiceRolled } from '../redux/reducers/gameSelectors';
@@ -50,11 +50,27 @@ const Dice = React.memo(({ color, rotate, player, data }) => {
 
 
         const handleDicePress = async () => {
-                const newDiceNo = Math.floor(Math.random() * 6) + 1;
-                //const newDiceNo = 2
+                let newDiceNo = 0;
+                const randomValue = Math.random();
+                //const newDiceNo = 1;
+                if (randomValue < 0.15) { // e.g., 15% chance for 1
+                        newDiceNo = 1;
+                } else if (randomValue < 0.30) { // e.g., 15% chance for 2
+                        newDiceNo = 2;
+                } else if (randomValue < 0.45) { // e.g., 15% chance for 3
+                        newDiceNo = 3;
+                } else if (randomValue < 0.60) { // e.g., 15% chance for 4
+                        newDiceNo = 4;
+                } else if (randomValue < 0.75) { // e.g., 15% chance for 5
+                        newDiceNo = 5;
+                } else { // Remaining probability (25%) for 6
+                        newDiceNo = 6;
+                }
+
+                // const newDiceNo = 1
                 playSound('dice_roll');
                 setDiceRolling(true);
-                await delay(800);
+                await delay(500);
                 dispatch(updateDiceNo({ diceNo: newDiceNo }));
                 setDiceRolling(false);
 
@@ -160,7 +176,7 @@ const styles = StyleSheet.create({
                 backgroundColor: '#e8c0c1',
                 borderWidth: 1,
                 borderRadius: 5,
-                width: 60,
+                width: 70,
                 height: 70,
                 paddingHorizontal: 8,
                 paddingVertical: 8,

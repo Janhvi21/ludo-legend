@@ -25,11 +25,13 @@ const WinModal = ({ winner }) => {
 
         const handleNewGame = () => {
                 dispatch(resetGame());
+                dispatch(assignPiles());
                 dispatch(annouceWinner(null));
                 playSound('game_start');
         };
         const handleHome = () => {
                 dispatch(resetGame());
+                dispatch(assignPiles());
                 dispatch(annouceWinner(null));
                 resetAndNavigate('HomeScreen');
         };
