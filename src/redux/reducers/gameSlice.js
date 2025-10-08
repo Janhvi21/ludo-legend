@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { initialState, scoreboard } from "./initialState";
-import { act } from "react";
-import { Alert } from "react-native";
+import { initialState, player1InitialState, player2InitialState, player3InitialState, player4InitialState, scoreboard } from "./initialState";
 import asyncStorage from "../storage";
 
 export const gameSlice = createSlice({
@@ -9,6 +7,14 @@ export const gameSlice = createSlice({
         initialState: initialState,
         reducers: {
                 resetGame: () => initialState,
+                assignPiles: (state) => {
+                        if (state.noOfPlayer < 4) {
+                                state.player4 = [];
+                        }
+                        if (state.noOfPlayer < 3) {
+                                state.player2 = [];
+                        }
+                },
                 setScoreBoard: () => {
                         asyncStorage.setItem('SCOREBOARD', JSON.stringify(scoreboard));
                 },
@@ -16,7 +22,7 @@ export const gameSlice = createSlice({
                         state.winner = action.payload;
                 },
                 setNoOfPlayers: (state, action) => {
-                        state.noOfPlayer = action.payload.noOfPlayer;
+                        state.noOfPlayer = action.payload;
                 },
                 updateFireworks: (state, action) => {
                         state.fireworks = action.payload;
@@ -87,6 +93,6 @@ export const gameSlice = createSlice({
         },
 });
 
-export const { resetGame, setScoreBoard, disableTouch, updatePlayerPieceValue, unfreezeDice, enableCellSelection, enablePileSelection, updatePlayerChance, updateDiceNo, annouceWinner, updateFireworks } = gameSlice.actions;
+export const { resetGame, setNoOfPlayers, assignPiles, setScoreBoard, disableTouch, updatePlayerPieceValue, unfreezeDice, enableCellSelection, enablePileSelection, updatePlayerChance, updateDiceNo, annouceWinner, updateFireworks } = gameSlice.actions;
 
 export default gameSlice.reducer;

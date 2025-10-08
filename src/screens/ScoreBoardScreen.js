@@ -7,13 +7,16 @@ import { playSound } from '../helpers/SoundUtility';
 import MenuModal from '../components/MenuModal';
 import { Table, Row, Rows } from 'react-native-table-component';
 import asyncStorage from '../redux/storage';
+import { IconButton, MD3Colors } from 'react-native-paper';
+import { goBack } from '../helpers/NavigationUtil';
+import Ionicans from 'react-native-vector-icons/Ionicons'
+import { RFValue } from 'react-native-responsive-fontsize';
 
 const ScoreBoardScreen = () => {
-        const [menuVisible, setMenuVisible] = useState(false);
         const [tableData, setTableData] = useState(null);
-        const handleMenuPress = useCallback(() => {
+        const handleBackPress = useCallback(() => {
                 playSound('ui');
-                setMenuVisible(true);
+                goBack();
         }, []);
         const tableHead = ['ID', 'PLAYER NAME', 'WINS',];
         const loadValue = async () => {
@@ -31,8 +34,11 @@ const ScoreBoardScreen = () => {
 
         return (
                 <Wrapper>
-                        <TouchableOpacity style={styles.menuIcon} onPress={handleMenuPress}>
-                                <Image source={MenuIcon} style={styles.menuIconImage} />
+                        <TouchableOpacity style={styles.menuIcon} onPress={handleBackPress}>
+                                <Ionicans name='arrow-back'
+                                        size={RFValue(20)}
+                                        color={'white'}
+                                />
                         </TouchableOpacity>
                         {tableData !== null && (<View style={styles.container}>
                                 <Table borderStyle={{ borderWidth: 2, borderColor: '#c8e1ff' }}>
@@ -40,23 +46,18 @@ const ScoreBoardScreen = () => {
                                         <Rows data={tableData} textStyle={styles.text} />
                                 </Table>
                         </View>)}
-                        {
-                                menuVisible && (
-                                        <MenuModal onPressHide={() => setMenuVisible(false)} visible={menuVisible} />
-                                )
-                        }
                 </Wrapper >
         )
 }
 const styles = StyleSheet.create({
         menuIcon: {
                 position: 'absolute',
-                top: 60,
+                top: 80,
                 left: 20,
         },
         menuIconImage: {
-                width: 30,
-                height: 30,
+                width: 40,
+                height: 50,
         },
         row: {
                 flexDirection: 'row',

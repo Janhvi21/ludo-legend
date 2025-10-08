@@ -67,8 +67,8 @@ const Pile = ({ cell, pieceId, color, player, onPress }) => {
                         <View style={styles.hollowCircle}>
                                 {(cell ? isCellEnabled && isForwadable() : isPileEnabled) && (
                                         <View style={styles.dashedCircleContainer}>
-                                                <Animated.View style={[styles.dashedCircle, { transform: [{ rotate: rotationInterpolate }] }]
-                                                }></Animated.View>
+                                                <Animated.View style={[{ transform: [{ rotate: rotationInterpolate }] }]
+                                                }><Image style={styles.dashedCircle} /></Animated.View>
                                         </View>
                                 )}
                         </View>
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
                 resizeMode: 'contain',
                 borderWidth: 4,
                 borderRadius: 50,
-                borderColor: 'pink',
+                borderColor: 'gold',
         }
 })
 export default memo(Pile)

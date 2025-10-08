@@ -78,9 +78,9 @@ const LudoBoardScreen = () => {
 
                         <View style={styles.container}>
                                 <View
-                                        style={noOfPlayer === 4 ? styles.flexRow : styles.flexRight}
+                                        style={noOfPlayer > 2 ? styles.flexRow : styles.flexRight}
                                         pointerEvents={isDiceTouch ? 'none' : 'auto'}>
-                                        {noOfPlayer === 4 && < Dice color={Colors.green} player={2} data={player2} />}
+                                        {noOfPlayer > 2 && < Dice color={Colors.green} player={2} data={player2} />}
                                         <Dice color={Colors.yellow} player={3} rotate data={player3} />
                                 </View>
                                 <View style={styles.ludoBoard}>
@@ -151,8 +151,8 @@ const styles = StyleSheet.create({
                 left: 20,
         },
         menuIconImage: {
-                width: 30,
-                height: 30,
+                width: 40,
+                height: 50,
         },
         flexRow: {
                 flexDirection: 'row',

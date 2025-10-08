@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Animated, Image, ActivityIndicator } from 'reac
 import React, { useState, useEffect } from 'react'
 import { deviceWidth, deviceHeight } from '../constants/Scaling';
 import Wrapper from '../components/Wrapper'
-import Logo from '../assets/images/logo.png'
+import Logo from '../assets/images/ludoLegends.png'
 import { prepareNavigation, resetAndNavigate } from '../helpers/NavigationUtil';
 
 const SplashScreen = () => {
