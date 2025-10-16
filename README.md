@@ -1,9 +1,8 @@
 # Ludo Legend 🎲
 
-A modern, feature-rich implementation of the classic Ludo board game built with React Native. Experience the timeless game of strategy and luck with stunning visuals, smooth animations, and engaging gameplay mechanics.
+A classic multiplayer board game built with React Native . Features turn-based gameplay, dice rolling mechanics, pawn movement, and winning logic. 
 
-![Ludo Game](src/assets/images/image.png)
-
+<img src="src/assets/images/image.png" alt="Ludo Game" width="200"/>
 ## ✨ Features
 
 - 🎮 Support for 2-4 players
@@ -14,7 +13,6 @@ A modern, feature-rich implementation of the classic Ludo board game built with 
 - 🏆 Win detection and celebration animations
 - 💾 Game state persistence
 - 📱 Responsive design for various screen sizes
-- 🎨 Beautiful UI with gradient buttons and smooth animations
 - 🏠 Safe spots and special cells mechanics
 - 🔄 Turn-based gameplay with player indicators
 
@@ -99,38 +97,3 @@ npm run android
 - Token stacking in same cells
 - Player names with turn indicators
 
-## 🤝 Contributing
-
-Contributions are welcome! Feel free to:
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to your branch
-5. Open a Pull Request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 👏 Credits
-
-- Game Design & Development: [Janhvi Chitnis](https://github.com/Janhvi21)
-- UI/UX Design inspiration from classic Ludo board games
-- Sound effects from [React Native Sound Player](https://github.com/johnsonsu/react-native-sound-player)
-
-## 📱 Screenshots
-
-<table>
-  <tr>
-    <td><img src="./src/assets/images/screenshots/home.png" width="200" alt="Home Screen"/></td>
-    <td><img src="./src/assets/images/screenshots/player-selection.png" width="200" alt="Player Selection"/></td>
-    <td><img src="./src/assets/images/screenshots/gameplay.png" width="200" alt="Gameplay"/></td>
-  </tr>
-</table>
-
-*Note: Make sure to update the screenshot paths once you add actual screenshots to the project.*
-
----
-
-Made with ❤️ by [Janhvi Chitnis](https://github.com/Janhvi21)
