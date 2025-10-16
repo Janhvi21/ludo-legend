@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { initialState, player1InitialState, player2InitialState, player3InitialState, player4InitialState, scoreboard } from "./initialState";
 import asyncStorage from "../storage";
+import { Alert } from "react-native";
 
 export const gameSlice = createSlice({
         name: 'game',
@@ -15,8 +16,31 @@ export const gameSlice = createSlice({
                                 state.player2 = [];
                         }
                 },
-                setScoreBoard: () => {
-                        asyncStorage.setItem('SCOREBOARD', JSON.stringify(scoreboard));
+                updateScoreBoard: (state, action) => {
+                        (async () => {
+                                const scoreboard = JSON.parse(await asyncStorage.getItem('SCOREBOARD'));
+                                const existingPlayer = scoreboard.findIndex(item => item.name === action.payload);
+                                if (existingPlayer !== -1) {
+                                        scoreboard[existingPlayer].wins += 1;
+                                }
+                                else {
+                                        const newEntry = { id: scoreboard.length + 1, name: action.payload, wins: 1 }
+                                        scoreboard.push(newEntry);
+                                }
+                                await asyncStorage.setItem('SCOREBOARD', JSON.stringify(scoreboard));
+                        })();
+                },
+                setPlayer1Info: (state, action) => {
+                        state.playerInfo.player1.name = action.payload;
+                },
+                setPlayer2Info: (state, action) => {
+                        state.playerInfo.player2.name = action.payload;
+                },
+                setPlayer3Info: (state, action) => {
+                        state.playerInfo.player3.name = action.payload;
+                },
+                setPlayer4Info: (state, action) => {
+                        state.playerInfo.player4.name = action.payload;
                 },
                 annouceWinner: (state, action) => {
                         state.winner = action.payload;
@@ -93,6 +117,6 @@ export const gameSlice = createSlice({
         },
 });
 
-export const { resetGame, setNoOfPlayers, assignPiles, setScoreBoard, disableTouch, updatePlayerPieceValue, unfreezeDice, enableCellSelection, enablePileSelection, updatePlayerChance, updateDiceNo, annouceWinner, updateFireworks } = gameSlice.actions;
+export const { resetGame, initializePlayers, setNoOfPlayers, updateScoreBoard, setPlayer1Info, setPlayer2Info, setPlayer3Info, setPlayer4Info, assignPiles, disableTouch, updatePlayerPieceValue, unfreezeDice, enableCellSelection, enablePileSelection, updatePlayerChance, updateDiceNo, annouceWinner, updateFireworks } = gameSlice.actions;
 
 export default gameSlice.reducer;

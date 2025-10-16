@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import { annouceWinner, resetGame } from '../redux/reducers/gameSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { annouceWinner, assignPiles, resetGame } from '../redux/reducers/gameSlice';
 import { resetAndNavigate } from '../helpers/NavigationUtil';
 import { playSound } from '../helpers/SoundUtility';
 import HeartGirl from '../assets/animation/girl.json';
@@ -13,9 +13,11 @@ import Modal from 'react-native-modal'
 import LinearGradient from 'react-native-linear-gradient'
 import GradentButton from './GradentButton';
 import LottieView from 'lottie-react-native';
+import { selectPlayerInfo } from '../redux/reducers/gameSelectors';
 
 const WinModal = ({ winner }) => {
         const dispatch = useDispatch();
+        const playerInfo = useSelector(selectPlayerInfo);
         const [visible, setVisible] = useState(!!winner);
 
         useEffect(() => {
@@ -49,7 +51,7 @@ const WinModal = ({ winner }) => {
                                                 <Pile player={winner} color={colorPlayer[winner - 1]} />
                                         </View>
                                         <Text style={styles.congratsText}>
-                                                Congratulations! Player {winner}
+                                                Congratulations {playerInfo[`player${winner}`].name} !
                                         </Text>
                                         <LottieView
                                                 autoPlay
@@ -95,8 +97,10 @@ const styles = StyleSheet.create({
         content: {
                 width: '100%',
                 alignItems: 'center',
+                marginBottom: 20,
         },
         pileContainer: {
+                marginTop: 30,
                 width: 90,
                 height: 40,
         },

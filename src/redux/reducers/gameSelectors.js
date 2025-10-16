@@ -11,6 +11,7 @@ export const selectPlayer4 = state => state.game.player4;
 export const selectNoOfPlayer = state => state.game.noOfPlayer;
 
 export const scoreboard = state => state.game.scoreboard;
+export const selectPlayerInfo = state => state.game.playerInfo;
 
 
 export const selectPocketPileSelection = state => state.game.pileSelectionPlayer;

@@ -9,16 +9,19 @@ import { useIsFocused } from '@react-navigation/native'
 import SoundPlayer from 'react-native-sound-player'
 import { navigate } from '../helpers/NavigationUtil'
 import { selectCurrentPositions } from '../redux/reducers/gameSelectors'
-import { resetGame, assignPiles, setScoreBoard, setNoOfPlayers } from '../redux/reducers/gameSlice'
+import { resetGame, setScoreBoard } from '../redux/reducers/gameSlice'
 import { useDispatch, useSelector } from 'react-redux'
+import asyncStorage from '../redux/storage'
+import { ActivePlayers } from '../redux/reducers/initialState'
 
 const HomeScreen = () => {
         const dispatch = useDispatch();
         const currentPosition = useSelector(selectCurrentPositions);
         const isFocused = useIsFocused();
-
         useEffect(() => {
-                dispatch(setScoreBoard());
+                (async () => {
+                        await asyncStorage.setItem('LUDOPLAYERS', JSON.stringify(ActivePlayers));
+                })();
                 if (isFocused) {
                         playSound('home');
                 }
@@ -31,10 +34,11 @@ const HomeScreen = () => {
                 SoundPlayer.stop();
                 if (isNew) {
                         dispatch(resetGame());
-                        dispatch(setNoOfPlayers(4));
-                        dispatch(assignPiles());
+                        navigate('SelectPlayersScreen');
                 }
-                navigate('SelectPlayersScreen');
+                else {
+                        navigate('LudoBoardScreen');
+                }
                 playSound('game-start');
         }
         const handleNewGamePress = useCallback(() => {
@@ -51,7 +55,7 @@ const HomeScreen = () => {
                         <View style={styles.imgContainer}>
                                 <Image source={Logo} style={styles.img} />
                         </View>
-                        {currentPosition.length !== 0 &&
+                        {currentPosition && currentPosition.length !== 0 &&
                                 renderButton('RESUME GAME', handleResumePress)}
                         {renderButton('NEW GAME', handleNewGamePress)}
                         {renderButton('SCORE BOARD', handleScoreBoardPress)}

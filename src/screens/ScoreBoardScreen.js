@@ -22,6 +22,7 @@ const ScoreBoardScreen = () => {
         const loadValue = async () => {
                 try {
                         const value = JSON.parse(await asyncStorage.getItem('SCOREBOARD'));
+
                         const temp = value.map(obj => Object.values(obj));
                         setTableData(temp);
                 } catch (error) {

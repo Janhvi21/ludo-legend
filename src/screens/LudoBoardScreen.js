@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, Image, Animated } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Image, Animated, Text } from 'react-native'
 import React, { use, useCallback, useEffect, useRef, useState } from 'react'
 import { deviceHeight, deviceWidth } from '../constants/Scaling'
 import Wrapper from '../components/Wrapper'
@@ -14,7 +14,7 @@ import FourTriangles from '../components/FourTriangles'
 import { useIsFocused } from '@react-navigation/native'
 import StartGame from '../assets/images/start.png'
 import { useSelector } from 'react-redux'
-import { selectNoOfPlayer, selectDiceTouch, selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4 } from '../redux/reducers/gameSelectors'
+import { selectNoOfPlayer, selectDiceTouch, selectPlayer1, selectPlayer2, selectPlayer3, selectPlayer4, selectPlayerInfo } from '../redux/reducers/gameSelectors'
 import { Colors } from '../constants/Colors'
 import { Plot1Data, Plot3Data, Plot2Data, Plot4Data } from '../helpers/PlotData'
 
@@ -23,9 +23,9 @@ const LudoBoardScreen = () => {
         const player2 = useSelector(selectPlayer2);
         const player3 = useSelector(selectPlayer3);
         const player4 = useSelector(selectPlayer4);
+        const playerInfo = useSelector(selectPlayerInfo);
         const isDiceTouch = useSelector(selectDiceTouch);
         const winner = useSelector(state => state.game.winner);
-
         const noOfPlayer = useSelector(selectNoOfPlayer);
 
         const isFocused = useIsFocused();
@@ -80,8 +80,16 @@ const LudoBoardScreen = () => {
                                 <View
                                         style={noOfPlayer > 2 ? styles.flexRow : styles.flexRight}
                                         pointerEvents={isDiceTouch ? 'none' : 'auto'}>
-                                        {noOfPlayer > 2 && < Dice color={Colors.green} player={2} data={player2} />}
-                                        <Dice color={Colors.yellow} player={3} rotate data={player3} />
+                                        {noOfPlayer > 2 && (
+                                                <View>
+                                                        <Text style={styles.text}>{playerInfo.player2.name}</Text>
+                                                        <Dice color={Colors.green} player={2} data={player2} />
+                                                </View>
+                                        )}
+                                        <View>
+                                                <Text style={styles.text}>{playerInfo.player3.name}</Text>
+                                                <Dice color={Colors.yellow} player={3} rotate data={player3} />
+                                        </View>
                                 </View>
                                 <View style={styles.ludoBoard}>
                                         <View style={styles.plotContainer}>
@@ -102,8 +110,16 @@ const LudoBoardScreen = () => {
                                 </View>
                                 <View style={styles.flexRow}
                                         pointerEvents={isDiceTouch ? 'none' : 'auto'}>
-                                        <Dice color={Colors.red} player={1} data={player1} />
-                                        {noOfPlayer === 4 && <Dice color={Colors.blue} player={4} rotate data={player4} />}
+                                        <View>
+                                                <Text style={styles.text}>{playerInfo.player1.name}</Text>
+                                                <Dice color={Colors.red} player={1} data={player1} />
+                                        </View>
+                                        {noOfPlayer === 4 && (
+                                                <View>
+                                                        <Text style={styles.text}>{playerInfo.player4.name}</Text>
+                                                        <Dice color={Colors.blue} player={4} rotate data={player4} />
+                                                </View>
+                                        )}
 
                                 </View>
                         </View>
@@ -126,7 +142,7 @@ const LudoBoardScreen = () => {
                                         <MenuModal onPressHide={() => setMenuVisible(false)} visible={menuVisible} />
                                 )
                         }
-                        {winner != null && <WinModal winner={1} />}
+                        {winner != null && <WinModal winner={winner} />}
                 </Wrapper>
         );
 
@@ -178,6 +194,11 @@ const styles = StyleSheet.create({
                 height: '20%',
                 justifyContent: 'space-between',
                 backgroundColor: '#1E5162'
+        },
+        text: {
+                color: 'white',
+                fontWeight: 'bold',
+                paddingBottom: 10,
         }
 });
 export default LudoBoardScreen
