@@ -9,7 +9,7 @@ import { Button } from 'react-native-paper'
 const GradentButton = ({ title, onPress, iconColor = '#d5be3e' }) => {
         return (
                 <View style={styles.mainContainer}>
-                        <Button theme={{ colors: { primary: 'purple' } }} mode="contained" onPress={() => {
+                        <Button mode="contained" onPress={() => {
                                 playSound('ui');
                                 onPress();
                         }}>

@@ -52,7 +52,7 @@ const Dice = React.memo(({ color, rotate, player, data }) => {
         const handleDicePress = async () => {
                 let newDiceNo = 0;
                 const randomValue = Math.random();
-                //const newDiceNo = 1;
+
                 if (randomValue < 0.15) { // e.g., 15% chance for 1
                         newDiceNo = 1;
                 } else if (randomValue < 0.30) { // e.g., 15% chance for 2
@@ -67,7 +67,7 @@ const Dice = React.memo(({ color, rotate, player, data }) => {
                         newDiceNo = 6;
                 }
 
-                // const newDiceNo = 1
+                newDiceNo = 2;
                 playSound('dice_roll');
                 setDiceRolling(true);
                 await delay(500);

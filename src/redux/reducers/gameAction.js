@@ -1,4 +1,4 @@
-import { annouceWinner, disableTouch, unfreezeDice, updateFireworks, updatePlayerChance, updatePlayerPieceValue } from '../reducers/gameSlice';
+import { annouceWinner, disableTouch, unfreezeDice, updateFireworks, updatePlayerChance, updatePlayerPieceValue, updateScoreBoard } from '../reducers/gameSlice';
 import { SafeSpots, StarSpots, startingPoints, turningPoints, victoryStart } from '../../helpers/PlotData';
 import { playSound } from '../../helpers/SoundUtility';
 import { selectCurrentPositions, selectDiceNo } from './gameSelectors';
@@ -14,10 +14,12 @@ function checkWinningCriteria(pieces) {
         return true;
 
 }
-
 export const handleForwardThunk =
         (playerNo, id, pos) => async (dispatch, getState) => {
+
                 const state = getState();
+
+
                 const plottedPieces = selectCurrentPositions(state);
                 const diceNo = selectDiceNo(state);
 
@@ -33,7 +35,6 @@ export const handleForwardThunk =
                 const beforePlayerPiece = state.game[`player${playerNo}`].find(item => item.id == id);
 
                 let travelCount = beforePlayerPiece.travelCount;
-
                 for (let i = 0; i < diceNo; i++) {
                         const updatePosition = getState();
                         const playerPiece = updatePosition.game[`player${playerNo}`].find(item => item.id == id);
@@ -56,7 +57,9 @@ export const handleForwardThunk =
                                         pos: path,
                                         travelCount: travelCount,
                                 })
+
                         );
+                        Alert.alert(`${path}${travelCount}`)
                         playSound('pile_move');
                         await delay(200);
                 }
@@ -70,6 +73,7 @@ export const handleForwardThunk =
                 const ids = finalPlot?.map(item => item.id[0]);
                 const uniqueIds = new Set(ids);
                 const areDifferentIds = uniqueIds.size > 1;
+
                 if (SafeSpots.includes(finalPath) || StarSpots.includes(finalPath)) {
                         playSound('safe_spot');
                 }
@@ -104,7 +108,6 @@ export const handleForwardThunk =
                         }),
                         );
                         dispatch(unfreezeDice());
-
                         return;
                 }
                 if (diceNo == 6 || travelCount == 57) {
@@ -115,7 +118,9 @@ export const handleForwardThunk =
                                 const playerAllPieces = finalPlayerState.game[`player${playerNo}`];
 
                                 if (checkWinningCriteria(playerAllPieces)) {
+                                        Alert.alert(`${playerNo}`)
                                         dispatch(annouceWinner(playerNo));
+                                        dispatch(updateScoreBoard(state.game.playerInfo[`player${playerNo}`].name));
                                         playSound('cheer', true);
                                         return;
                                 }

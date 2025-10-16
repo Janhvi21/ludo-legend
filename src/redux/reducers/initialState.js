@@ -22,11 +22,26 @@ const player4InitialState = [
         { id: 'D3', pos: 0, travelCount: 0 },
         { id: 'D4', pos: 0, travelCount: 0 },
 ];
+const initialPlayerInfo = {
+        player1: {
+                name: '',
+        },
+        player2: {
+                name: '',
+        },
+        player3: {
+                name: '',
+        },
+        player4: {
+                name: '',
+        }
+}
 export const initialState = {
         player1: player1InitialState,
         player2: player2InitialState,
         player3: player3InitialState,
         player4: player4InitialState,
+        playerInfo: initialPlayerInfo,
         chancePlayer: 1,
         noOfPlayer: 2,     // Set to 4 for 4 player game
         diceNo: 1,
@@ -42,4 +57,9 @@ export const initialState = {
 export const scoreboard = [
         { id: 1, name: 'Janhvi', wins: 4 },
         { id: 2, name: 'Abhishek', wins: 5 }
+]
+
+export const ActivePlayers = [
+        { id: 1, name: 'Janhvi' },
+        { id: 2, name: 'Abhishek' }
 ]

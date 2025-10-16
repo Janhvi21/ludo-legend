@@ -11,6 +11,7 @@ import { goBack, navigate } from '../helpers/NavigationUtil'
 const MenuModal = ({ visible, onPressHide }) => {
         const dispatch = useDispatch();
         const handleNewGame = useCallback(() => {
+                dispatch(resetGame());
                 onPressHide();
                 navigate('SelectPlayersScreen')
         }, [dispatch, onPressHide]);
@@ -18,6 +19,10 @@ const MenuModal = ({ visible, onPressHide }) => {
         const handleHome = useCallback(() => {
                 onPressHide();
                 navigate('HomeScreen');
+        }, []);
+        const handleScoreBoard = useCallback(() => {
+                onPressHide();
+                navigate('ScoreBoardScreen');
         }, []);
 
         return (
@@ -36,6 +41,7 @@ const MenuModal = ({ visible, onPressHide }) => {
                                         <View style={styles.subView}>
                                                 <GradentButton title="RESUME" onPress={onPressHide} />
                                                 <GradentButton title="NEW GAME" onPress={handleNewGame} />
+                                                <GradentButton title="SCOREBOARD" onPress={handleScoreBoard} />
                                                 <GradentButton title="HOME" onPress={handleHome} />
                                         </View>
                                 </LinearGradient>
